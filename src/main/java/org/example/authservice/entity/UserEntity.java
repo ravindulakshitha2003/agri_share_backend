@@ -1,0 +1,32 @@
+package org.example.authservice.entity;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+
+@Data
+@NoArgsConstructor
+
+@Document( collection =  "User")
+public class UserEntity {
+    @Id
+    private  String id;
+    private  String username;
+    private  String password;
+    private  String province;
+    private  String whatsappnumber;
+    private  int age;
+    private  String  role ;
+
+    public UserEntity(String username, String password, String province, String whatsappnumber, int age, String role) {
+        this.username = username;
+        this.password = password;
+        this.province = province;
+        this.whatsappnumber = whatsappnumber;
+        this.age = age;
+        this.role = role;
+    }
+}
