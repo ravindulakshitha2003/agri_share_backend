@@ -1,8 +1,6 @@
 package org.example.authservice.configure;
-
-
+import org.example.authservice.filter.JwtFilter;
 import org.example.authservice.repository.UserRepository;
-import org.example.authservice.service.AuthService;
 import org.example.authservice.service.MyUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
 @Configuration
@@ -24,9 +22,11 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfiguration  {
 
     private  final UserRepository userRepository;
+    private  final JwtFilter jwtFilter;
 
-    public SecurityConfiguration(UserRepository userRepository) {
+    public SecurityConfiguration(UserRepository userRepository, JwtFilter jwtFilter) {
         this.userRepository = userRepository;
+        this.jwtFilter = jwtFilter;
     }
 
     @Bean
@@ -45,7 +45,8 @@ public class SecurityConfiguration  {
 
 
                 ).authenticationProvider(authenticationProvider())
-                     .httpBasic(b -> {})
+                     .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+                     .authenticationProvider(authenticationProvider())
                      .build();
     }
 

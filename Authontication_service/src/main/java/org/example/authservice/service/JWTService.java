@@ -1,6 +1,6 @@
 package org.example.authservice.service;
 
-import io.jsonwebtoken.Jwt;
+
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.example.authservice.entity.UserEntity;
@@ -45,25 +45,35 @@ public class JWTService {
         claims.put("roles",user.getRole());
         claims.put("province",user.getProvince());
 
-            return Jwts.builder()
-                    .claims(claims)
-                    .subject(user.getUsername())
-                    .issuedAt(new Date(System.currentTimeMillis()))
-                    .expiration(new Date(System.currentTimeMillis()+1000*60*30))
-                    .signWith(secretKey)
-                    .compact();
+            try {
+                return Jwts.builder()
+                        .claims(claims)
+                        .subject(user.getUsername())
+                        .issuedAt(new Date(System.currentTimeMillis()))
+                        .expiration(new Date(System.currentTimeMillis()+1000*60*30))
+                        .signWith(secretKey)
+                        .compact();
+            }catch (Exception e){
+                return null;
+            }
+
 
 
     }
 
 
     public String getUsername(String token){
-        return Jwts.parser()
-                .verifyWith(secretKey)
-                .build()
-                .parseSignedClaims(token)
-                .getPayload()
-                .getSubject();
+        try {
+            return Jwts.parser()
+                    .verifyWith(secretKey)
+                    .build()
+                    .parseSignedClaims(token)
+                    .getPayload()
+                    .getSubject();
+        }catch (Exception e){
+            return  null;
+        }
+
 
     }
 

@@ -1,13 +1,13 @@
 package org.example.authservice.service;
 
 
-import org.example.authservice.dto.UserNotSuccessRespondDTO;
-import org.example.authservice.dto.UserRequesttDTO;
-import org.example.authservice.dto.UserRespondDTO;
-import org.example.authservice.dto.UserSuccessRespondDTO;
+import org.example.authservice.dto.*;
 import org.example.authservice.entity.UserEntity;
 
 import org.example.authservice.repository.UserRepository;
+
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -15,10 +15,14 @@ import org.springframework.stereotype.Service;
 public class AuthService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private  final AuthenticationManager authenticationManager;
+    private  final  JWTService jwtService;
 
-    public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, JWTService jwtService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.authenticationManager = authenticationManager;
+        this.jwtService = jwtService;
     }
 
     public UserRespondDTO userRegister (UserRequesttDTO userRequesttDTO){
@@ -45,6 +49,18 @@ public class AuthService {
            }
            return  user;
 
+    }
+
+    public  UserLoginRespondDTO createToekn (UserLoginReqestDTO user){
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(),user.getPassword()));
+
+        }catch (Exception e){
+            return null;
+        }
+        String token=  jwtService.createToken(user.getUsername());
+        UserLoginRespondDTO respond = new UserLoginRespondDTO(user.getUsername(),null,token,null,"success");
+        return  respond;
     }
 }
 
