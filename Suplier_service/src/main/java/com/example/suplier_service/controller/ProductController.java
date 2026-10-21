@@ -23,6 +23,10 @@ public class ProductController {
     public ResponseEntity<ProductEntitiy> create(ProductRequestDTO productRequestDTO){
         return productService.saveGoods(productRequestDTO);
     }
+    @GetMapping("/suppliers")
+    public String getSuppliers() {
+        return "Protected supplier data";
+    }
 
 
 

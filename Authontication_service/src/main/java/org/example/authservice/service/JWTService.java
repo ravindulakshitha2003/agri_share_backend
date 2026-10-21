@@ -2,9 +2,11 @@ package org.example.authservice.service;
 
 
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.example.authservice.entity.UserEntity;
 import org.example.authservice.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.KeyGenerator;
@@ -23,15 +25,14 @@ public class JWTService {
 
 
 
-    public JWTService(UserRepository userRepository) {
+    public JWTService(
+            UserRepository userRepository,
+            @Value("${JWT_SECRET}") String secret) {
+
         this.userRepository = userRepository;
 
-        try {
-            SecretKey key = KeyGenerator.getInstance("HmacSHA256").generateKey();
-            this.secretKey = Keys.hmacShaKeyFor(key.getEncoded());
-        }catch (Exception e){
-            System.out.println(e);
-        }
+        byte[] keyBytes = Decoders.BASE64.decode(secret);
+        this.secretKey = Keys.hmacShaKeyFor(keyBytes);
     }
 
     public String createToken(String username){
