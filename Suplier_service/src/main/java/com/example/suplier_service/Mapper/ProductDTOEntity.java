@@ -2,20 +2,13 @@ package com.example.suplier_service.Mapper;
 
 import com.example.suplier_service.dto.ProductRequestDTO;
 import com.example.suplier_service.entitiy.ProductEntitiy;
+import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 
+
+@Component
 public class ProductDTOEntity {
-    private ProductEntitiy productEntitiy;
-    private ProductRequestDTO productRequestDTO;
-
-
-    public ProductDTOEntity(ProductEntitiy productEntitiy) {
-        this.productEntitiy = productEntitiy;
-
-    }
-    public ProductDTOEntity(ProductRequestDTO productRequestDTO) {
-
-        this.productRequestDTO = productRequestDTO;
-    }
 
 
     public ProductEntitiy DtoTOEntity(ProductRequestDTO productRequestDTO) {
