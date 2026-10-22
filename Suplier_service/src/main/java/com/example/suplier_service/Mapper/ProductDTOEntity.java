@@ -11,9 +11,10 @@ import org.springframework.stereotype.Component;
 public class ProductDTOEntity {
 
 
-    public ProductEntitiy DtoTOEntity(ProductRequestDTO productRequestDTO) {
+    public ProductEntitiy DtoTOEntity(ProductRequestDTO productRequestDTO,String username) {
         return new ProductEntitiy(
                 productRequestDTO.getCategory(),
+                username,
                 productRequestDTO.getProductName(),
                 productRequestDTO.getQuantity(),
                 productRequestDTO.getUnit(),

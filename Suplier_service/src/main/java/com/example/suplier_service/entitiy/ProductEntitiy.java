@@ -3,7 +3,7 @@ package com.example.suplier_service.entitiy;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -13,16 +13,16 @@ import java.time.LocalTime;
 
 
 @NoArgsConstructor
-@RequiredArgsConstructor
 @Data
-@Document(collation = "Goods")
+@Document(collection = "Goods")
 public class ProductEntitiy {
 
     @Id
     private  String id;
 
-    public ProductEntitiy(String category, String productName, BigDecimal quantity, String unit, BigDecimal price, String condition, String packaging, BigDecimal minimumQuantity, String location, LocalDate availableDate, LocalTime availableTime, LocalDate deadlineDate, LocalTime deadlineTime, String freshness, String storage, String urgency, Boolean canDeliver, Boolean priceNegotiable, String description) {
+    public ProductEntitiy(String category, String username, String productName, BigDecimal quantity, String unit, BigDecimal price, String condition, String packaging, BigDecimal minimumQuantity, String location, LocalDate availableDate, LocalTime availableTime, LocalDate deadlineDate, LocalTime deadlineTime, String freshness, String storage, String urgency, Boolean canDeliver, Boolean priceNegotiable, String description) {
         this.category = category;
+        this.username = username;
         this.productName = productName;
         this.quantity = quantity;
         this.unit = unit;
@@ -44,6 +44,7 @@ public class ProductEntitiy {
     }
 
     private String category;
+    private String username;
     private String productName;
     private BigDecimal quantity;
     private String unit;

@@ -7,9 +7,12 @@ import org.example.authservice.entity.UserEntity;
 import org.example.authservice.repository.UserRepository;
 
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 
 @Service
 public class AuthService {
@@ -44,23 +47,35 @@ public class AuthService {
 
     public  UserEntity getUserByUsername(String username){
            UserEntity user= userRepository.findByUsername(username).orElse(null);
-           if(user.getId() == null){
+           if(user.getUsername() == null){
                return  null;
            }
            return  user;
 
     }
 
-    public  UserLoginRespondDTO createToekn (UserLoginReqestDTO user){
+    public UserLoginRespondDTO createToken(UserLoginReqestDTO user) {
         try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(),user.getPassword()));
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            user.getUsername(),
+                            user.getPassword()
+                    )
+            );
 
-        }catch (Exception e){
-            return null;
+            String token = jwtService.createToken(user.getUsername());
+            System.out.println(token);
+            return new UserLoginRespondDTO(
+                    user.getUsername(),
+                    null,
+                    token,
+                    null,
+                    "success"
+            );
+
+        } catch (AuthenticationException e) {
+            throw new BadCredentialsException("Invalid username or password");
         }
-        String token=  jwtService.createToken(user.getUsername());
-        UserLoginRespondDTO respond = new UserLoginRespondDTO(user.getUsername(),null,token,null,"success");
-        return  respond;
     }
 }
 

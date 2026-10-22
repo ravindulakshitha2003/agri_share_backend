@@ -73,19 +73,19 @@ public class JwtFilter extends OncePerRequestFilter {
                     .getAuthentication() == null) {
 
                 // Convert the role claim into a Spring Security authority.
-                List<SimpleGrantedAuthority> authorities =
-                        (role == null || role.isBlank())
-                                ? List.of()
-                                : List.of(new SimpleGrantedAuthority(
-                                role.startsWith("ROLE_")
-                                        ? role
-                                        : "ROLE_" + role));
+//                List<SimpleGrantedAuthority> authorities =
+//                        (role == null || role.isBlank())
+//                                ? List.of()
+//                                : List.of(new SimpleGrantedAuthority(
+//                                role.startsWith("ROLE_")
+//                                        ? role
+//                                        : "ROLE_" + role));
 
                 UsernamePasswordAuthenticationToken authentication =
                         new UsernamePasswordAuthenticationToken(
                                 username,
                                 null,
-                                authorities);
+                                null);
 
                 authentication.setDetails(
                         new WebAuthenticationDetailsSource()

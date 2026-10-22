@@ -1,14 +1,12 @@
 package com.example.suplier_service.controller;
-
-
 import com.example.suplier_service.dto.ProductRequestDTO;
 import com.example.suplier_service.entitiy.ProductEntitiy;
 import com.example.suplier_service.service.ProductService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/product")
@@ -20,13 +18,27 @@ public class ProductController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<ProductEntitiy> create(ProductRequestDTO productRequestDTO){
-        return productService.saveGoods(productRequestDTO);
+    public ResponseEntity<ProductEntitiy> create(@RequestBody ProductRequestDTO productRequestDTO,  @AuthenticationPrincipal String username){
+        return productService.saveGoods(productRequestDTO,username);
     }
-    @GetMapping("/suppliers")
+    @GetMapping("/health")
     public String getSuppliers() {
         return "Protected supplier data";
     }
+    @GetMapping("/allproduct")
+    public ResponseEntity<List<ProductEntitiy>> getall() {
+        return productService.getall();
+    }
+
+
+    @GetMapping("/allproductUser")
+    public ResponseEntity<List<ProductEntitiy>> getbyusrname(@RequestParam String username) {
+
+        return productService.getallbyusername(username);
+    }
+
+
+
 
 
 
