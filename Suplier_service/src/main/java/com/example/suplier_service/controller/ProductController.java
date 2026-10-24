@@ -1,4 +1,5 @@
 package com.example.suplier_service.controller;
+import com.example.suplier_service.dto.CreateAuctionRequestDTO;
 import com.example.suplier_service.dto.ProductRequestDTO;
 import com.example.suplier_service.entitiy.ProductEntitiy;
 import com.example.suplier_service.service.ProductService;
@@ -18,7 +19,7 @@ public class ProductController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<ProductEntitiy> create(@RequestBody ProductRequestDTO productRequestDTO,  @AuthenticationPrincipal String username){
+    public ResponseEntity<ProductEntitiy> create(@RequestBody CreateAuctionRequestDTO productRequestDTO, @AuthenticationPrincipal String username){
         System.out.println(username);
         return productService.saveGoods(productRequestDTO,username);
     }

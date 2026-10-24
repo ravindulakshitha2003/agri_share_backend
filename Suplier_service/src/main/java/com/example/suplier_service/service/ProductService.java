@@ -2,6 +2,7 @@ package com.example.suplier_service.service;
 
 
 import com.example.suplier_service.Mapper.ProductDTOEntity;
+import com.example.suplier_service.dto.CreateAuctionRequestDTO;
 import com.example.suplier_service.dto.ProductRequestDTO;
 import com.example.suplier_service.entitiy.ProductEntitiy;
 import com.example.suplier_service.repository.ProductRepository;
@@ -9,6 +10,7 @@ import com.example.suplier_service.repository.ProductRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,19 +20,23 @@ public class ProductService {
 
     private  final ProductRepository productRepository;
     private  ProductDTOEntity productDTOEntityl;
+    private final WebClient auctionWebcliant;
 
 
-    public ProductService(ProductRepository productRepository, ProductDTOEntity productDTOEntityl) {
+    public ProductService(ProductRepository productRepository, ProductDTOEntity productDTOEntityl, WebClient auctionWebcliant) {
         this.productRepository = productRepository;
         this.productDTOEntityl = productDTOEntityl;
 
+        this.auctionWebcliant = auctionWebcliant;
     }
 
-    public ResponseEntity<ProductEntitiy> saveGoods(ProductRequestDTO dto,String username){
+    public ResponseEntity<ProductEntitiy> saveGoods(CreateAuctionRequestDTO dto, String username){
 
+//        if(dto.isAuction()){
+//                auctionWebcliant.post()
+//        }
 
-
-          ProductEntitiy productEntitiy  =  productRepository.save(productDTOEntityl.DtoTOEntity(dto,username));
+          ProductEntitiy productEntitiy  =  productRepository.save(productDTOEntityl.DtoTOEntity(dto,username,username));
 
           if(productEntitiy.getId()==null){
                 return  new ResponseEntity<>(HttpStatus.BAD_REQUEST);

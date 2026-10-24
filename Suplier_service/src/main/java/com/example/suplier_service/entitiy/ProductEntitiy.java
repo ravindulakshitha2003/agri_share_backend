@@ -44,7 +44,7 @@ public class ProductEntitiy {
         this.priceNegotiable = priceNegotiable;
         this.description = description;
         this.auction = auction;
-       
+
     }
 
     private String category;

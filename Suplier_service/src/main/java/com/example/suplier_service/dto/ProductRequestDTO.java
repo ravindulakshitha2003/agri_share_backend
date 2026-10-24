@@ -10,9 +10,8 @@ import java.time.LocalTime;
 
 
 @AllArgsConstructor
-@NoArgsConstructor
 @Data
-public class ProductRequestDTO {
+public class ProductRequestDTO   {
 
 
     private String category;

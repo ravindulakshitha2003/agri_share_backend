@@ -8,7 +8,7 @@ import java.time.Instant;
 
 public record CreateAuctionRequestDTO(
         @NotBlank String title,
-        @NotBlank String sellerUsername,
+        @NotBlank String sellerUsernam
         @NotNull @DecimalMin("0.01") BigDecimal startingPrice,
         @NotNull @DecimalMin("0.01") BigDecimal minimumIncrement,
         @NotNull Instant startTime,
