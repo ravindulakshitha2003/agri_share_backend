@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class ProductDTOEntity {
 
 
-    public ProductEntitiy DtoTOEntity(ProductRequestDTO productRequestDTO,String username) {
+    public ProductEntitiy DtoTOEntity(ProductRequestDTO productRequestDTO,String username,String autionid) {
         return new ProductEntitiy(
                 productRequestDTO.getCategory(),
                 username,
@@ -32,7 +32,9 @@ public class ProductDTOEntity {
                 productRequestDTO.getUrgency(),
                 productRequestDTO.getCanDeliver(),
                 productRequestDTO.getPriceNegotiable(),
-                productRequestDTO.getDescription()
+                productRequestDTO.getDescription(),
+                productRequestDTO.isAuction()
+
         );
     }
 

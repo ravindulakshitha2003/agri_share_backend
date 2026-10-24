@@ -19,6 +19,7 @@ public class ProductController {
 
     @PostMapping("/create")
     public ResponseEntity<ProductEntitiy> create(@RequestBody ProductRequestDTO productRequestDTO,  @AuthenticationPrincipal String username){
+        System.out.println(username);
         return productService.saveGoods(productRequestDTO,username);
     }
     @GetMapping("/health")

@@ -34,4 +34,6 @@ public class ProductRequestDTO {
     private Boolean canDeliver;
     private Boolean priceNegotiable;
     private String description;
+    private boolean auction = false  ;
+
 }

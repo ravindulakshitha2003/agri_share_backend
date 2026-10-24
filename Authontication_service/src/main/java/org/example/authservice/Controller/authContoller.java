@@ -1,12 +1,12 @@
 package org.example.authservice.Controller;
-import org.example.authservice.dto.UserLoginReqestDTO;
-import org.example.authservice.dto.UserLoginRespondDTO;
-import org.example.authservice.dto.UserRequesttDTO;
-import org.example.authservice.dto.UserRespondDTO;
+import org.example.authservice.dto.*;
+import org.example.authservice.entity.UserEntity;
 import org.example.authservice.repository.UserRepository;
 import org.example.authservice.service.AuthService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -57,5 +57,13 @@ public class authContoller {
         System.out.println("jhas");
 
         return new ResponseEntity<>(userrespond, HttpStatus.OK);
+    }
+
+
+    @GetMapping("/userdata")
+    public UserSuccessRespondDTO userDataByUsername (@RequestParam  String username){
+
+        UserEntity User = authService.getUserByUserId(username);
+        return new UserSuccessRespondDTO(User.getUsername(),"******",User.getProvince(),User.getWhatsappnumber(),User.getAge(),User.getRole());
     }
 }

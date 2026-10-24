@@ -77,6 +77,24 @@ public class AuthService {
             throw new BadCredentialsException("Invalid username or password");
         }
     }
+
+
+
+    public  UserEntity getUserByUserId(String username){
+        try {
+
+
+
+            UserEntity user = userRepository.findByUsername(username).orElse(null);
+            if (user.getUsername() == null) {
+                return null;
+            }
+            return user;
+        } catch (Exception e) {
+            return new UserEntity(null,null,null,null,0,null);
+        }
+
+    }
 }
 
 
