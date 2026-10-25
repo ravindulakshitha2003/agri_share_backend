@@ -3,10 +3,16 @@ package com.example.suplier_service.dto;
 
 
 import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
+
+
+@Data
 
 public class CreateAuctionRequestDTO extends ProductRequestDTO {
 

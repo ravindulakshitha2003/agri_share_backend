@@ -2,6 +2,8 @@ package com.example.suplier_service.service;
 
 
 import com.example.suplier_service.Mapper.ProductDTOEntity;
+import com.example.suplier_service.dto.AuctionRequestDTO;
+import com.example.suplier_service.dto.AuctionResponseDTO;
 import com.example.suplier_service.dto.CreateAuctionRequestDTO;
 import com.example.suplier_service.dto.ProductRequestDTO;
 import com.example.suplier_service.entitiy.ProductEntitiy;
@@ -32,9 +34,20 @@ public class ProductService {
 
     public ResponseEntity<ProductEntitiy> saveGoods(CreateAuctionRequestDTO dto, String username){
 
-//        if(dto.isAuction()){
-//                auctionWebcliant.post()
-//        }
+
+
+        if(dto.isAuction()){
+                AuctionRequestDTO auctionData=  new AuctionRequestDTO(dto.getTitle(),dto.getSellerUsername(),dto.getStartingPrice(),dto.getMinimumIncrement(),dto.getStartTime(),dto.getEndTime());
+            AuctionResponseDTO response = auctionWebcliant.post()
+                    .uri("/auctions")
+                    .bodyValue(auctionData)
+                    .retrieve()
+                    .bodyToMono(AuctionResponseDTO.class)
+                    .block();
+        }
+
+
+
 
           ProductEntitiy productEntitiy  =  productRepository.save(productDTOEntityl.DtoTOEntity(dto,username,username));
 

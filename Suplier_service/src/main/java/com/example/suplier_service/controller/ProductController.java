@@ -21,7 +21,8 @@ public class ProductController {
     @PostMapping("/create")
     public ResponseEntity<ProductEntitiy> create(@RequestBody CreateAuctionRequestDTO productRequestDTO, @AuthenticationPrincipal String username){
         System.out.println(username);
-        return productService.saveGoods(productRequestDTO,username);
+        System.out.println("recived for aucuion");
+        return productService.saveGoods(productRequestDTO,"ravindu123");
     }
     @GetMapping("/health")
     public String getSuppliers() {

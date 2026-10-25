@@ -8,6 +8,7 @@ import com.example.auction.dto.CreateAuctionRequestDTO;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
+import javax.crypto.spec.PSource;
 import java.util.List;
 
 @RestController
@@ -22,7 +23,9 @@ public class AuctionController {
 
     @PostMapping
     public AuctionResponseDTO create(
+
             @Valid @RequestBody CreateAuctionRequestDTO request) {
+        System.out.println("recived for aucuion");
         return auctionService.create(request);
     }
 

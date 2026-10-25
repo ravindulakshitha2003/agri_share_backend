@@ -18,7 +18,7 @@ public class WebConfiguration {
     @Bean
     public WebClient AuctionWebClient() {
 
-        return webClientBuilder().baseUrl("http://localhost:8005/api/v1").build();
+        return webClientBuilder().baseUrl("http://localhost:8005/api/").build();
     }
 
 }

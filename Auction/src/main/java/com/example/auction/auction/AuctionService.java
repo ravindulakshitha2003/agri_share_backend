@@ -33,12 +33,14 @@ public class AuctionService {
 
         if (!request.startTime().isAfter(now)) {
             throw new IllegalArgumentException(
-                    "Start time must be in the future");
+                    "Start time must be in the future"
+            );
         }
 
         if (!request.endTime().isAfter(request.startTime())) {
             throw new IllegalArgumentException(
-                    "End time must be after start time");
+                    "End time must be after start time"
+            );
         }
 
         Auction auction = new Auction(
@@ -47,11 +49,11 @@ public class AuctionService {
                 request.minimumIncrement(),
                 request.startTime(),
                 request.endTime(),
-                request.sellerUsername());
+                request.sellerUsername() // Fixed spelling
+        );
 
         return toDTO(auctionRepository.save(auction));
     }
-
     @Transactional(readOnly = true)
     public List<AuctionResponseDTO> getAll() {
         return auctionRepository.findAll()
