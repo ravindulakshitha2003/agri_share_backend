@@ -21,8 +21,19 @@ public class ProductEntitiy {
 
     @Id
     private  String id;
+    private String category;
+    private String username;
+    private String productName;
+    private BigDecimal quantity;
+    private String unit;
+    private BigDecimal price;
+    private String condition;
+    private String packaging;
+    private BigDecimal minimumQuantity;
+    private String location;
+    private LocalDate availableDate;
 
-    public ProductEntitiy(String category, String username, String productName, BigDecimal quantity, String unit, BigDecimal price, String condition, String packaging, BigDecimal minimumQuantity, String location, LocalDate availableDate, LocalTime availableTime, LocalDate deadlineDate, LocalTime deadlineTime, String freshness, String storage, String urgency, Boolean canDeliver, Boolean priceNegotiable, String description, boolean auction) {
+    public ProductEntitiy(String category, String username, String productName, BigDecimal quantity, String unit, BigDecimal price, String condition, String packaging, BigDecimal minimumQuantity, String location, LocalDate availableDate, LocalTime availableTime, LocalDate deadlineDate, LocalTime deadlineTime, String freshness, String storage, String urgency, Boolean canDeliver, Boolean priceNegotiable, String description, boolean auction, String auctionid) {
         this.category = category;
         this.username = username;
         this.productName = productName;
@@ -44,20 +55,9 @@ public class ProductEntitiy {
         this.priceNegotiable = priceNegotiable;
         this.description = description;
         this.auction = auction;
-
+        this.auctionid = auctionid;
     }
 
-    private String category;
-    private String username;
-    private String productName;
-    private BigDecimal quantity;
-    private String unit;
-    private BigDecimal price;
-    private String condition;
-    private String packaging;
-    private BigDecimal minimumQuantity;
-    private String location;
-    private LocalDate availableDate;
     private LocalTime availableTime;
     private LocalDate deadlineDate;
     private LocalTime deadlineTime;

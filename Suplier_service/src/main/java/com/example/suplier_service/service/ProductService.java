@@ -34,7 +34,7 @@ public class ProductService {
 
     public ResponseEntity<ProductEntitiy> saveGoods(CreateAuctionRequestDTO dto, String username){
 
-
+        ProductEntitiy productEntitiy;
 
         if(dto.isAuction()){
                 AuctionRequestDTO auctionData=  new AuctionRequestDTO(dto.getTitle(),dto.getSellerUsername(),dto.getStartingPrice(),dto.getMinimumIncrement(),dto.getStartTime(),dto.getEndTime());
@@ -44,12 +44,16 @@ public class ProductService {
                     .retrieve()
                     .bodyToMono(AuctionResponseDTO.class)
                     .block();
+             productEntitiy  =  productRepository.save(productDTOEntityl.DtoTOEntity(dto,username,response.getId().toString()));
+        }else{
+             productEntitiy  =  productRepository.save(productDTOEntityl.DtoTOEntity(dto,username,null));
+
+
         }
 
 
 
 
-          ProductEntitiy productEntitiy  =  productRepository.save(productDTOEntityl.DtoTOEntity(dto,username,username));
 
           if(productEntitiy.getId()==null){
                 return  new ResponseEntity<>(HttpStatus.BAD_REQUEST);

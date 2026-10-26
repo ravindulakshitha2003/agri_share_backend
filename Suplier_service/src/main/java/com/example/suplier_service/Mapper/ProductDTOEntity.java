@@ -33,7 +33,8 @@ public class ProductDTOEntity {
                 productRequestDTO.getCanDeliver(),
                 productRequestDTO.getPriceNegotiable(),
                 productRequestDTO.getDescription(),
-                productRequestDTO.isAuction()
+                productRequestDTO.isAuction(),
+                autionid
 
         );
     }
