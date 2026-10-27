@@ -80,6 +80,21 @@ public class ProductService {
 
         return ResponseEntity.ok(data);
     }
+
+//
+
+    public ResponseEntity<ProductEntitiy> getbyId (
+            String username) {
+        System.out.println("recived");
+       ProductEntitiy data =
+                productRepository.findById(username).orElse(null);
+
+        if (data== null) {
+            return ResponseEntity.ok(null);
+        }
+
+        return ResponseEntity.ok(data);
+    }
 }
 
 

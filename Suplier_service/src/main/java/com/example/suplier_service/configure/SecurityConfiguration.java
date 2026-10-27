@@ -32,7 +32,7 @@ public class SecurityConfiguration {
                                 SessionCreationPolicy.STATELESS))
 
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/v1/product/**").permitAll()
+                        .requestMatchers("/api/v1/purches/**").permitAll()
                         .anyRequest().authenticated())
 
                 .addFilterBefore(

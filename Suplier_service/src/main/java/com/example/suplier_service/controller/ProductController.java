@@ -40,6 +40,12 @@ public class ProductController {
         return productService.getallbyusername(username);
     }
 
+    @GetMapping("/ById")
+    public ResponseEntity<ProductEntitiy> getbyID(@RequestParam String id) {
+
+        return productService.getbyId(id);
+    }
+
 
 
 
